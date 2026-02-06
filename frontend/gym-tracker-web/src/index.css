@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/* APENAS customizações do tema - sem @layer! */
+:root {
+  --color-gym-primary: #3b82f6;
+  --color-gym-secondary: #ef4444;
+  --color-gym-accent: #10b981;
+}
+
+/* Estilos globais normais */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
