@@ -1,7 +1,17 @@
 import { Ruler, Save, TrendingDown, TrendingUp, History } from 'lucide-react';
 import { useState } from 'react';
+import { useBodyMeasurements } from "../hooks/useBodyMeasurements";
 
 export default function BodyMeasurementsPage() {
+  localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NmQ5YWYwZC01NTkwLTRkNzUtYWMyMC04NzJkMjEzM2U2NzciLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJzY29wZSI6IiIsImNsaWVudF9pZCI6Imd5bS10cmFja2VyIiwiZXhwIjoxNzcwNDU4OTEzLCJpc3MiOiJBdXRoZW50aWNhdGlvbkFwcCIsImF1ZCI6IkF1dGhlbnRpY2F0aW9uQXBwLkFwaSJ9.wwhDP5Ww792qPkHTwKsgWaDU1XBGEkksOe8VLYypicY");
+
+  const { data, loading, error } = useBodyMeasurements();
+
+    if (loading) return <p>Carregando...</p>;
+    if (error) return <p>Erro: {error}</p>;
+
+    console.log(data);
+
   const [measurements, setMeasurements] = useState({
     chest: '',
     waist: '',

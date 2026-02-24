@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import  LoginPage  from '../features/login/pages/LoginPage';
 import  DashboardPage from '../features/dashboard/pages/DashboardPage';
-import BodyMeasurementsPage from '../features/bodymeasurements/pages/BodyMeasurementsPage';
+import BodyMeasurementsPage from '@/features/bodymeasurements/pages/BodyMeasurementsPage';
 
 export function AppRoutes() {
   return (
