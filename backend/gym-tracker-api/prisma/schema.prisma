@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Workout {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+
+  @@map("workouts")
+}
+
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  authId    String   @unique
+  email     String
+  name      String?
+  role      String
+  createdAt DateTime @default(now())
+
+  bodyMeasurements BodyMeasurements[]
+
+  @@map("users")
+}
+
+model BodyMeasurements {
+  id          Int      @id @default(autoincrement())
+  chest       Int?
+  waist       Int?
+  hips        Int?
+  leftArm     Int?
+  rightArm    Int?
+  leftThigh   Int?
+  rightThigh  Int?
+  leftCalf    Int?
+  rightCalf   Int?
+  createdAt   DateTime @default(now())
+
+  userId String   @db.Uuid
+  user   User @relation(fields: [userId], references: [id])
+
+  @@map("bodymeasurements")
+}
