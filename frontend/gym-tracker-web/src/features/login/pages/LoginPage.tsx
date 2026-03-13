@@ -11,9 +11,8 @@ export default function LoginPage() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // await handleLogin(email, password);
+    await handleLogin(email, password);
     redirectDashboard();
-
   }
 
   const navigate = useNavigate();

@@ -1,0 +1,26 @@
+NODE_TLS_REJECT_UNAUTHORIZED=0 npx prisma generate  ( esse caso so roda na maquina e nao aplica no banco )
+ 
+
+NODE_TLS_REJECT_UNAUTHORIZED=0 npx prisma migrate dev --name UpdateTables3( aplica no banco )
+
+
+Workout Type ( Treino Força ) IdUsuario
+    Workout Plan ( Treino A ) WorkoutPlanId
+        Workout Plan Exercise ExerciseTypeId e ExerciseId 
+             ExerciseSet ( Repeticoes, descanso, peso e etc ) ( sugerido no treino )  WorkoutPlanExerciseId
+
+    ExerciseType 
+        Exercise ( Nome do Exercicio ) WorkoutPlanId
+           
+
+Porque assim eu consigo fazer isso 
+
+Treino Força
+    Treino A
+        Exercicio ( Abdominal)
+
+Treino Emagrecimento
+    Treino B
+        Exercicio ( Abdominal )
+
+

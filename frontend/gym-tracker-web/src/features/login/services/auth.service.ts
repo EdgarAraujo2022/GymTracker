@@ -1,19 +1,12 @@
 import { http } from '@/shared/services/http';
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  token: string;
-}
+import type { LoginRequest } from '../dto/LoginRequest.dto';
+import type { LoginResponse } from '../dto/LoginResponse.dto';
 
 export async function login(
   data: LoginRequest
 ): Promise<LoginResponse> {
   const response = await http.post<LoginResponse>(
-    '/login',
+    'http://localhost:3000/auth/login',
     data
   );
 

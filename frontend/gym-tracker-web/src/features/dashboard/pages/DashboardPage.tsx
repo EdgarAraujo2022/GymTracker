@@ -1,14 +1,11 @@
-import { Dumbbell, Trophy, TrendingUp, Calendar, Flame, Target, Ruler } from 'lucide-react';
+import { Trophy, TrendingUp, Calendar, Flame, Target } from 'lucide-react';
 import MyWorkouts from './components/MyWorkouts';
-import { useNavigate  } from 'react-router-dom';
 
 
 export default function DashboardPage() {
-  const navigate = useNavigate();
 
-  const redirectBodyMeasurements = () => {
-    navigate('/bodymeasurements');
-  };
+
+
 
   const stats = [
     { label: "Treinos na Semana", value: "4", icon: Calendar, color: "blue" },
@@ -20,33 +17,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-red-500 rounded-xl flex items-center justify-center">
-                <Dumbbell className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-gray-800">GymTracker Pro</h1>
-                <p className="text-sm text-gray-500">Sua evolução fitness</p>
-              </div>
-            </div>
-
-            <div className="flex space-x-3">
-              <button onClick={redirectBodyMeasurements} className="px-5 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl font-semibold hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 flex items-center space-x-2 cursor-pointer">
-                <Ruler className="w-4 h-4" />
-                <span>Registrar Medidas</span>
-              </button>
-
-              <button className="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer">
-                + Novo Treino
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
+      
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {/* Welcome Banner */}

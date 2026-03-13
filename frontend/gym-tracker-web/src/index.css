@@ -31,3 +31,19 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #2563eb;
 }
+
+@media screen and (max-width: 640px) {
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up-mobile {
+    animation: slide-up 0.3s ease-out;
+  }
+}

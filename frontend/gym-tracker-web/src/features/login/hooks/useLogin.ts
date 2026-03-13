@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { login } from '../services/auth.service';
+import { authStorage } from '@/shared/services/auth.storage';
 
 export function useLogin() {
   const [loading, setLoading] = useState(false);
@@ -14,8 +15,7 @@ export function useLogin() {
       setError(null);
 
       const result = await login({ email, password });
-
-      console.log('TOKEN:', result.token);
+      authStorage.setToken(result.accessToken);
 
       return result;
     } catch (err: any) {

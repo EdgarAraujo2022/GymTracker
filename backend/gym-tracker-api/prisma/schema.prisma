@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
   engineType = "binary"
 }
 
@@ -16,7 +16,6 @@ model Workout {
   @@map("workouts")
 }
 
-
 model User {
   id        String   @id @default(uuid()) @db.Uuid
   authId    String   @unique
@@ -25,26 +24,106 @@ model User {
   role      String
   createdAt DateTime @default(now())
 
-  bodyMeasurements BodyMeasurements[]
+  bodyMeasurements BodyMeasurement[]
+  workoutTypes     WorkoutType[]
 
   @@map("users")
 }
 
-model BodyMeasurements {
-  id          Int      @id @default(autoincrement())
-  chest       Int?
-  waist       Int?
-  hips        Int?
-  leftArm     Int?
-  rightArm    Int?
-  leftThigh   Int?
-  rightThigh  Int?
-  leftCalf    Int?
-  rightCalf   Int?
+model BodyMeasurement {
+  id         Int      @id @default(autoincrement())
+  chest      Int?
+  waist      Int?
+  hips       Int?
+  leftArm    Int?
+  rightArm   Int?
+  leftThigh  Int?
+  rightThigh Int?
+  leftCalf   Int?
+  rightCalf  Int?
+  createdAt  DateTime @default(now())
+
+  userId String @db.Uuid
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("body_measurements")
+}
+
+model WorkoutType {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  status      Boolean
   createdAt   DateTime @default(now())
+  userId String       @db.Uuid
 
-  userId String   @db.Uuid
-  user   User @relation(fields: [userId], references: [id])
+  plans  WorkoutPlan[]
+  user   User?        @relation(fields: [userId], references: [id])
+  
+  @@map("workout_types")
+}
 
-  @@map("bodymeasurements")
+model WorkoutPlan {
+  id        String   @id @default(uuid())
+  name      String
+  status    Boolean
+  createdAt DateTime @default(now())
+
+  workoutTypeId String
+  workoutType   WorkoutType @relation(fields: [workoutTypeId], references: [id], onDelete: Cascade)
+
+  plansExercises  WorkoutPlanExercise[]
+
+  @@map("workout_plans")
+}
+
+
+model WorkoutPlanExercise {
+  id              String   @id @default(uuid())
+  workoutPlanId   String
+  exerciseId      String
+
+  workoutPlan    WorkoutPlan @relation(fields: [workoutPlanId], references: [id], onDelete: Cascade)
+  exercise       Exercise @relation(fields: [exerciseId], references: [id]) 
+
+  exerciseSet  ExerciseSet[]
+  @@map("workout_plans_exercises")
+}
+
+model ExerciseType {
+  id   String @id @default(uuid())
+  name String
+
+  exercises Exercise[]
+
+  @@map("exercise_types")
+}
+
+model Exercise {
+  id        String   @id @default(uuid())
+  name      String
+  status    Boolean
+  createdAt DateTime @default(now())
+  
+  exerciseTypeId       String
+  exerciseType         ExerciseType          @relation(fields: [exerciseTypeId], references: [id])
+  plansExercises  WorkoutPlanExercise[]
+
+  @@map("exercises")
+}
+
+model ExerciseSet {
+  id                        String @id @default(uuid())
+  workoutPlanExerciseId     String
+  sets                      Int
+  weight                    Float
+  reps                      Int
+  rest                      Int
+  muscle                    String
+  order                     Int
+
+  createdAt DateTime @default(now())
+
+  workoutPlanExercise    WorkoutPlanExercise @relation(fields: [workoutPlanExerciseId], references: [id], onDelete: Cascade)
+  @@map("exercise_sets")
 }
