@@ -7,15 +7,6 @@ datasource db {
   provider = "postgresql"
 }
 
-model Workout {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String?
-  createdAt   DateTime @default(now())
-
-  @@map("workouts")
-}
-
 model User {
   id        String   @id @default(uuid()) @db.Uuid
   authId    String   @unique
@@ -26,7 +17,7 @@ model User {
 
   bodyMeasurements BodyMeasurement[]
   workoutTypes     WorkoutType[]
-
+  workoutSessions WorkoutSession[]
   @@map("users")
 }
 
@@ -73,7 +64,7 @@ model WorkoutPlan {
   workoutType   WorkoutType @relation(fields: [workoutTypeId], references: [id], onDelete: Cascade)
 
   plansExercises  WorkoutPlanExercise[]
-
+  workoutSessions WorkoutSession[]
   @@map("workout_plans")
 }
 
@@ -85,8 +76,9 @@ model WorkoutPlanExercise {
 
   workoutPlan    WorkoutPlan @relation(fields: [workoutPlanId], references: [id], onDelete: Cascade)
   exercise       Exercise @relation(fields: [exerciseId], references: [id]) 
-
+  
   exerciseSet  ExerciseSet[]
+  performedSets PerformedSet[]
   @@map("workout_plans_exercises")
 }
 
@@ -126,4 +118,63 @@ model ExerciseSet {
 
   workoutPlanExercise    WorkoutPlanExercise @relation(fields: [workoutPlanExerciseId], references: [id], onDelete: Cascade)
   @@map("exercise_sets")
+}
+
+model WorkoutSession {
+  id            String         @id @default(uuid())
+  userId        String         @db.Uuid
+  workoutPlanId String
+  startTime     DateTime       @default(now())
+  endTime       DateTime?
+  totalTime     Int? 
+  status        SessionStatus  @default(IN_PROGRESS)
+  notes         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workoutPlan   WorkoutPlan    @relation(fields: [workoutPlanId], references: [id])
+
+  performedSets PerformedSet[]
+  restPeriods   RestPeriod[]
+
+  @@map("workout_sessions")
+}
+
+model PerformedSet {
+  id                 String   @id @default(uuid())
+  workoutSessionId   String
+  workoutPlanExerciseId String
+  setNumber          Int  
+  repsCompleted      Int
+  weightUsed         Float
+  restTime           Int?   
+  notes              String?
+  completedAt        DateTime @default(now())
+  createdAt          DateTime @default(now())
+
+  workoutSession     WorkoutSession     @relation(fields: [workoutSessionId], references: [id], onDelete: Cascade)
+  workoutPlanExercise WorkoutPlanExercise @relation(fields: [workoutPlanExerciseId], references: [id])
+
+  @@map("performed_sets")
+}
+
+model RestPeriod {
+  id               String   @id @default(uuid())
+  workoutSessionId String
+  startTime        DateTime
+  endTime          DateTime?
+  duration         Int? 
+  createdAt        DateTime @default(now())
+
+  workoutSession   WorkoutSession @relation(fields: [workoutSessionId], references: [id], onDelete: Cascade)
+
+  @@map("rest_periods")
+}
+
+enum SessionStatus {
+  IN_PROGRESS
+  PAUSED
+  COMPLETED
+  ABANDONED
 }

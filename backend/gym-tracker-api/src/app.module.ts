@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { WorkoutModule } from './workout/workout.module';
+import { WorkoutSessionController } from './workout-session/workout-session.module';
 import { BodyMeasurementModule } from './bodymeasurements/bodymeasurement.module';
 import { AuthModule } from './auth/auth.module';
 import { WorkoutTypeModule } from './workout-type/workout-type.module';
@@ -16,7 +16,7 @@ import { WorkoutPlanExerciseModule } from './workout-plan-exercise/workout-plan-
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    WorkoutModule,
+    WorkoutSessionController,
     WorkoutTypeModule,
     BodyMeasurementModule,
     AuthModule,

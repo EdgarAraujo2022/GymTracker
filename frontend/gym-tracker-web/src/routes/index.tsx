@@ -4,6 +4,7 @@ import DashboardPage from '../features/dashboard/pages/DashboardPage';
 import BodyMeasurementsPage from '@/features/bodymeasurements/pages/BodyMeasurementsPage';
 import WorkoutManager from '@/features/workout/pages/WorkoutManager';
 import { MainLayout } from '@/app/layout/mainlayout';
+import TreinoAtivo from '@/features/workout/pages/TreinoAtivo';
 
 export function AppRoutes() {
   return (
@@ -14,6 +15,7 @@ export function AppRoutes() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/bodymeasurements" element={<BodyMeasurementsPage />} />
           <Route path="/workoutmanager" element={<WorkoutManager />} />
+          <Route path="/treinoativo" element={<TreinoAtivo />} />
         </Route>
         <Route path="/" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/login" replace />} />

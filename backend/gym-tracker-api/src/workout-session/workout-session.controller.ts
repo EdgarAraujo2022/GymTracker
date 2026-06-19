@@ -1,21 +1,21 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { WorkoutService } from './workout.service';
-import { CreateWorkoutDto } from './dtos/create-workout.dto';
-import { UpdateWorkoutDto } from './dtos/update-workout.dto';
+import { WorkoutSessionService } from './workout-session.service';
+import { CreateWorkoutSessionDto } from './dtos/create-workout-session.dto';
+import { UpdateWorkoutSessionDto } from './dtos/update-workout-session.dto';
 
 @Controller('workouts')
-export class WorkoutController {
-  constructor(private service: WorkoutService) {}
+export class WorkoutSessionController {
+  constructor(private service: WorkoutSessionService) {}
 
   @Post()
-  create(@Body() dto: CreateWorkoutDto) {
+  create(@Body() dto: CreateWorkoutSessionDto) {
     return this.service.create(dto);
   }
 
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() dto: UpdateWorkoutDto,
+    @Body() dto: UpdateWorkoutSessionDto,
   ) {
     return this.service.update(Number(id), dto);
   }
